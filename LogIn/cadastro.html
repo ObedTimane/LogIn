@@ -1,0 +1,170 @@
+<html><head><base href="<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #2d2d2d;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ff88;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: #3d3d3d;
+            border: 2px solid #4d4d4d;
+            border-radius: 5px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 5px rgba(0,255,136,0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00cc6f;
+            transform: translateY(-2px);
+        }
+
+        .error {
+            color: #ff4444;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro</h1>
+        <form id="cadastroForm">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" required>
+                <div class="error" id="nomeError">Nome inválido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" required>
+                <div class="error" id="emailError">E-mail inválido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" required>
+                <div class="error" id="senhaError">Senha inválida</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmaSenha">Confirme a Senha</label>
+                <input type="password" id="confirmaSenha" required>
+                <div class="error" id="confirmaSenhaError">As senhas não correspondem</div>
+            </div>
+
+            <button type="submit"><a href="login.html">Cadastrar</a></button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Resetar mensagens de erro
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+            
+            // Pegar valores dos campos
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmaSenha = document.getElementById('confirmaSenha').value;
+            
+            let isValid = true;
+
+            // Validação do nome
+            if (nome.length < 3) {
+                document.getElementById('nomeError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validação do email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validação da senha
+            if (senha.length < 6) {
+                document.getElementById('senhaError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validação da confirmação da senha
+            if (senha !== confirmaSenha) {
+                document.getElementById('confirmaSenhaError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Aqui você pode adicionar o código para enviar os dados para o servidor
+                alert('Cadastro realizado com sucesso!');
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
